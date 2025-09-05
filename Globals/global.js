@@ -16,5 +16,5 @@
 // __filename
 // __dirname
 
-console.log(__filename);
-console.log(__dirname);
+// console.log('file name is ',__filename);
+// console.log('directory name is ',__dirname);
