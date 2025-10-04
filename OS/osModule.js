@@ -1,4 +1,4 @@
-const osModule = require('os');
+// const osModule = require('os');
 // console.log(osModule);
 
 // const osArc = osModule.arch();
@@ -33,6 +33,18 @@ const osModule = require('os');
 // console.log(osModule.version());
 
 // console.log(osModule.networkInterfaces());
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Learning start from here 
 
@@ -70,4 +82,4 @@ const os = require('os')
 // console.log(osModule.cpus());
 // console.log(osModule.version());
 
-console.log(osModule.networkInterfaces());
+// console.log(osModule.networkInterfaces());

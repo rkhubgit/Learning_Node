@@ -108,3 +108,37 @@
 
 // // LoginEvent.emit('login');
 
+
+// Learning from start here 
+
+const Event = require('events')
+
+// console.log(Event)
+
+const LoginEvent = new Event();
+
+// // success Event with callback function examples 
+LoginEvent.addListener('success', () => {
+    console.log('success log event called')
+})
+
+// LoginEvent.addListener("secondEvent", () => {
+//     console.log('second event called')
+// })
+
+// success event with external function examples
+const success = () => {
+    console.log('success log event called')
+}
+
+const secondEvent = () => {
+    console.log('second event called')
+}
+
+LoginEvent.addListener('login', success)
+// LoginEvent.on('login', secondEvent)
+
+LoginEvent.emit('login');
+
+
+

@@ -75,7 +75,7 @@ const pth = require('path')
 
 // convert the pathe into an object
 // const parsePath = pth.parse('D:\ROHIT KUMAR DATA\BACKEND\Node-Basic\Globals\global.js');
-// // console.log(parsePath)
+// console.log(parsePath)
 
 // convert path object to string 
 // const formatPath = pth.format(parsePath)
