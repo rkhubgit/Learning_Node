@@ -25,9 +25,32 @@ const fs = require('fs');
 //     console.log(files);
 // })
 
-fs.writeFile('./FS/rohit.txt', 'hii this is rohit kumar', (err) => {
-    if(err){
-        console.log(`Error occured: ${err.code} and error is ${err.message}`);
-        return;
-    }
-})
+// fs.writeFile('./FS/rohit.txt', 'hii this is rohit kumar', (err) => {
+//     if(err){
+//         console.log(`Error occured: ${err.code} and error is ${err.message}`);
+//         return;
+//     }
+// })
+
+
+// fs.mkdir('./FS/Users/Rohit', {recursive : true}, (err) => {
+//     if(err){
+//         console.log(`Error occured: ${err.code} and error is ${err.message}`)
+//         return;
+//     }
+//     console.log('dir created successfully')
+// })
+
+// fs.writeFile('./test.txt',  "hii this is test file", (err) => {
+//     if(err){
+//         console.log(`Error occured: ${err.code} and error is ${err.message}`);
+//         return;
+//     }
+//     console.log('file created successfully')
+// })
+
+
+
+
+
+
