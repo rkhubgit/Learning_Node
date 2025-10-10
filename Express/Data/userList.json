@@ -1,0 +1,25 @@
+{
+   "userList": [
+      {
+         "id": 1,
+         "name": "Rohit Kumar",
+         "Address": "Nehtaur",
+         "email": "rohit@gmail.com",
+         "pass": "12345678"
+      },
+      {
+         "id": 2,
+         "name": "Mohit Kumar",
+         "Address": "Nehtaur",
+         "email": "rohit@gmail.com",
+         "pass": "12345678"
+      },
+      {
+         "id": 3,
+         "name": "aman kumar",
+         "Address": "Nehtaur",
+         "email": "rohit@gmail.com",
+         "pass": "12345678"
+      }
+   ]
+}
