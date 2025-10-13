@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const PORT = 5000;
 app.use(express.json());
+app.use(express.urlencoded())
 
 app.get('/', (req, res) => {
     res.send('<h1>Hello everyone i am Rohit Kumar this is my first express app</h1>')
@@ -96,6 +97,12 @@ app.delete('/products/:id', (req, res) => {
     res.send(DeleProductList)
 })
 
+
+// login api request from the html file
+app.post('/login', (req, res) => {
+    console.log(req.body)
+    res.send('user login successfully')
+})
 
 
 
