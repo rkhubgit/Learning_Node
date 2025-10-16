@@ -5,6 +5,7 @@ const PORT = 5050;
 const productRouter = require('./routes/ProductRoutes');
 const UserRouter = require('./routes/userRoutes');
 
+// for parse the body 
 app.use(express.json())
 
 
@@ -34,7 +35,9 @@ app.use(express.json())
 
 // here we calling the productRoute which is import by the product route
 // we can define the two things into it first it --(baseRoute), and then the api route
-app.use('', productRouter);
+app.use('/product', productRouter);
+
+
 app.use('', UserRouter);
 
 
