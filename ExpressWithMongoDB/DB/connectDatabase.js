@@ -1,12 +1,15 @@
 const mongoose = require('mongoose')
+const mongoosePaginate = require('mongoose-paginate-v2');
 
-const option = {
+
+const options = {
     dbName: 'NewtonSchool'
 }
 
-mongoose.connect('mongodb://localhost:27017', option).then(() => {
-console.log(`connected to database successfully`);
+mongoose.connect('mongodb://localhost:27017', options)
+.then(() => {
+    console.log('database connected successfully')
 })
 .catch((err) => {
-    console.log(`Error Occurred: ${err.message}`);
+    console.error(`Error is occurred: ${err.code} and error message is ${err.message}`)
 })

@@ -1,19 +1,15 @@
 
 
-const express = require('express');
+const express = require("express")
 const app = express();
-const UserRouter = require('./route/userRoutes')
+const userRouter = require('./route/userRoutes')
 require('./DB/connectDatabase')
-
-
-
-
-const PORT = 5800;
 app.use(express.json());
 
 
-app.use('/', UserRouter)
+app.use("/", userRouter)
 
+const PORT = 5700;
 app.listen(PORT, () => {
     console.log(`server is running on the PORT ${PORT}`)
 })
