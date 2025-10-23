@@ -37,7 +37,7 @@ const CheckLogin = ((req, res, next) => {
             res.send('password did not match')
         }
     }else{
-        res.send('user not found')
+        res.send('user not found') 
     }
     next()
 
