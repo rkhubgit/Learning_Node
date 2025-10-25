@@ -26,6 +26,11 @@ const UserSchema = new Schema({
         type: String,
         require: true,
         enum:["Linux", "Ubuntu", "macos"]
+    },
+    Role: {
+        type: String,
+        required: true,
+        enum: ["user", "admin"]
     }
 })
 

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 
 const Signup = (req, res) => {
-    const {firstName, lastName, email, password, batch} = req.body
+    const {firstName, lastName, email, password, batch,Role} = req.body
 
     const salt = bcrypt.genSaltSync(10);
     const securedPass = bcrypt.hashSync(password, salt)
@@ -13,7 +13,8 @@ const Signup = (req, res) => {
         lastName,
         email,
         password : securedPass,
-        batch
+        batch,
+        Role
     })
     .then((user) => {
         console.log(user);
@@ -25,21 +26,28 @@ const Signup = (req, res) => {
 
 }
 
+const createToken = (userDetails) => {
+    const token = jwt.sign(userDetails, process.env.JWT_SECRET_KEY, {expiresIn: '10h'})
+    return token
+}
+
 const Login = async(req, res) => {
     const {email, password} = req.body;
 
     try{
         const userInDB = await User.findOne({email})
-        // console.log(userInDB);
+        // console.log(userInDB, 'user dbbbbbbbb');
 
         const isPasswordMatch = bcrypt.compareSync(password, userInDB.password)
 
         if(isPasswordMatch){
             // generating the json web token
-            const {email, mobile, _id} = userInDB
+            // const {email, mobile, _id} = userInDB
 
             // const token = jwt.sign({email: userInDB.email, mobile: userInDB.mobile}, secretKey);
-            const token = jwt.sign({email, mobile, _id}, process.env.JWT_SECRET_KEY)
+            // const token = jwt.sign({email, mobile, _id}, process.env.JWT_SECRET_KEY)
+           
+            const token = createToken({userId: userInDB._id})
             // console.log("token", token)
             res.json({message: 'user login successfully', token})
         }else{
@@ -52,36 +60,51 @@ const Login = async(req, res) => {
     }
 }
 
-const GetBatchInfo = (req, res) => {
-    const {authorization} = req.headers
-    // console.log(authorization)
+const GetBatchInfo = async(req, res) => {
 
-    if(authorization){
-    const data = authorization.split(" ");
-    const authToken = data[1];
-    // console.log(authToken)
-    if(authToken){
-    const userInfo = jwt.verify(authToken, JWT_SECRET_KEY)
-    User.findOne({email: userInfo.email}).select({batch: 1})
-    .then((user) => {
-        res.json({batchName: user.batch})
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-    }   else{
-        res.status(401).send('invalid token')
-    } 
-
-    }else{
-       res.status(401).send('unauthorized user')
-    }
-
-
-
-
+  // console.log(req.headers);
+//   console.log('user in getBatchInfo', req.user);
+  res.json({batchName: req.user.batch})
 
 }
 
+const GetAllUser = async(req, res) => {
+    const {Role} = req.user
+    // console.log(Role, 'roleeeeeeeeeeeeee')
+    if(Role){
+        if(Role === "admin"){
+          const allusers = await User.find();
+          res.send(allusers)
+        }else{
+            res.json({status: 401, message: "You are the unauthorized user"})
+        }
 
-module.exports = {Signup, Login, GetBatchInfo}
+    }else{
+        res.json({status: 500, message: "You don't have a valid role"})
+    }
+}
+
+const LogoutUser = async (req, res) => {
+    const {authorization} = req.headers
+    const data = authorization.split(" ");
+    const token = data[1];
+
+    try{
+        const userInfo = jwt.verify(token, process.env.JWT_SECRET_KEY)
+        const user = await User.findById(userInfo.userId)
+        const filteredTokens = user.tokens.filter((to) => {
+        return to !== token
+    })
+
+    await User.updateOne({_id: userInfo.userId}, {tokens: filteredTokens})
+    res.send('logged out successfully');
+        
+
+    }catch(err){
+        res.json({message: err.message})
+    }
+    
+}
+
+
+module.exports = {Signup, Login, GetBatchInfo, GetAllUser}
