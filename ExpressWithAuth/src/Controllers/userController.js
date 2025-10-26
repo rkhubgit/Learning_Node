@@ -106,5 +106,25 @@ const LogoutUser = async (req, res) => {
     
 }
 
+const homePage = (req, res) => {
+    // res.send('<h1>Rohit Kumar</h1>')
 
-module.exports = {Signup, Login, GetBatchInfo, GetAllUser}
+    // res.sendFile('D:\\ROHIT KUMAR DATA\\BACKEND\\Node-Basic\\ExpressWithAuth\\src\\views\\home.html')
+
+    // res.sendFile('/src/views/home.html', {root: process.env.BASE_PATH_URL})
+
+    const productData = {
+        mobile: "IPhone 14 Pro max",
+        cloths: "Jeans",
+
+    }
+
+    res.render('home/homeWP.pug', productData)
+}
+
+const AboutPage = (req, res) => {
+ res.sendFile("/src/views/about.html", {root: process.env.BASE_PATH_URL})
+}
+
+
+module.exports = {Signup, Login, GetBatchInfo, GetAllUser, homePage , AboutPage}

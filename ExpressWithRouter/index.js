@@ -1,12 +1,15 @@
 const express = require('express');
+const cors = require('cors')
 
 const app = express();
 const PORT = 5050;
+
 const productRouter = require('./routes/ProductRoutes');
 const UserRouter = require('./routes/userRoutes');
 
 // for parse the body 
 app.use(express.json())
+app.use(cors())
 
 
 // const productsList = [

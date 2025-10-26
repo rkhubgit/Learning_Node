@@ -1,0 +1,20 @@
+doctype html
+html(lang='en')
+    head
+        link(rel="stylesheet" href="home.css")
+        title Home Page using pug
+    body 
+        h1 Home Page
+        div.active Active Page Class
+        div#product Product Page 
+         
+        div mobiles #{mobile}  
+        h2 cloths #{cloths}
+
+        -const numbers = [1,2,3,4,5,6,7]
+            each num in numbers 
+                div= `number is ${num}`
+
+        -const friendsList = ["Rohit", "Anuj", "Amit", "Shirsh", "Shivam"]
+            each name in friendsList 
+                h3= `my friends name is ${name}`     
