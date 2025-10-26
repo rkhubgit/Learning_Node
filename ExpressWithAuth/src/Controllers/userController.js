@@ -39,7 +39,6 @@ const Login = async(req, res) => {
         // console.log(userInDB, 'user dbbbbbbbb');
 
         const isPasswordMatch = bcrypt.compareSync(password, userInDB.password)
-
         if(isPasswordMatch){
             // generating the json web token
             // const {email, mobile, _id} = userInDB
@@ -48,6 +47,13 @@ const Login = async(req, res) => {
             // const token = jwt.sign({email, mobile, _id}, process.env.JWT_SECRET_KEY)
            
             const token = createToken({userId: userInDB._id})
+
+            // save the token into the database 
+            const filteredTokens = [...userInDB.tokens, token]
+
+            // code here to complete this code
+            await User.updateOne({email: userInDB.email}, {tokens: filteredTokens})
+
             // console.log("token", token)
             res.json({message: 'user login successfully', token})
         }else{
@@ -64,7 +70,7 @@ const GetBatchInfo = async(req, res) => {
 
   // console.log(req.headers);
 //   console.log('user in getBatchInfo', req.user);
-  res.json({batchName: req.user.batch})
+  res.json({batchName: req.user.batch, Name: req.user.firstName})
 
 }
 
@@ -92,8 +98,8 @@ const LogoutUser = async (req, res) => {
     try{
         const userInfo = jwt.verify(token, process.env.JWT_SECRET_KEY)
         const user = await User.findById(userInfo.userId)
-        const filteredTokens = user.tokens.filter((to) => {
-        return to !== token
+        const filteredTokens = user.tokens.filter((ftoken) => {
+        return ftoken !== token
     })
 
     await User.updateOne({_id: userInfo.userId}, {tokens: filteredTokens})
@@ -123,8 +129,9 @@ const homePage = (req, res) => {
 }
 
 const AboutPage = (req, res) => {
- res.sendFile("/src/views/about.html", {root: process.env.BASE_PATH_URL})
+//  res.sendFile("/src/views/about.html", {root: process.env.BASE_PATH_URL})
+    res.render('home/about.pug')
 }
 
 
-module.exports = {Signup, Login, GetBatchInfo, GetAllUser, homePage , AboutPage}
+module.exports = {Signup, Login, GetBatchInfo, GetAllUser, homePage , AboutPage, LogoutUser}

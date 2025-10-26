@@ -31,7 +31,9 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         enum: ["user", "admin"]
-    }
+    },
+    tokens: Array
+
 })
 
 const User = mongoose.model("user", UserSchema);

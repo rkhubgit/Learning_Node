@@ -26,8 +26,17 @@ const authUser = async(req, res, next) => {
     try{
         const userInfo = jwt.verify(authToken, process.env.JWT_SECRET_KEY)
         const user = await User.findById(userInfo.userId);
+
+        const tokenIndex = user.tokens.findIndex((userToken) => userToken === authToken)
+
+        if(tokenIndex === -1){
+             res.send('you have been logged out. please login again!!')
+        }else{
+            
         req.user = user
         next()
+        }
+
 
     }catch(err){
         res.json({status: 401, message: 'unauthorized token'})

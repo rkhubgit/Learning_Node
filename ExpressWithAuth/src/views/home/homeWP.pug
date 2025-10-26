@@ -16,5 +16,33 @@ html(lang='en')
                 div= `number is ${num}`
 
         -const friendsList = ["Rohit", "Anuj", "Amit", "Shirsh", "Shivam"]
-            each name in friendsList 
-                h3= `my friends name is ${name}`     
+            each name,i in friendsList 
+                h3(style={ color: 'red'})= `my friends name is ${name} and index is ${i}`  
+
+                //- looping in object with conditionals
+        -const userInfo = {username: 'Abhinav', add: 'India'}
+            each val,key in userInfo
+                if key === 'username'
+                h3= `user is ${val}`
+                if key === 'add'
+                h3= `address is ${val}`
+
+        br
+        //- if else conditionals
+        -const isloggedIn =true 
+        if isloggedIn && name==='Abhinav'
+            div welcome #{name}
+            div= `Welcome using literals ${name}`
+        else 
+            div Welcome user
+
+        //- switch cases
+        -const add = 'India'
+        case add
+            when 'India'
+                h1 Indian
+            when 'USA'
+                h1 American
+            default
+                h2 default
+
